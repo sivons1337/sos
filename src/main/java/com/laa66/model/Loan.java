@@ -1,4 +1,4 @@
-package com.laa66;
+package com.laa66.model;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -27,6 +27,9 @@ public class Loan {
         this.loanDate = loanDate;
         this.returnDeadline = returnDeadline;
         this.student = student;
+    }
+
+    public Loan() {
     }
 
     public Integer getLoanId() {

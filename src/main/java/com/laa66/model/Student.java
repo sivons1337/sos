@@ -1,8 +1,7 @@
-package com.laa66;
+package com.laa66.model;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-
 
 @Entity
 @Table(name = "Student")
@@ -27,7 +26,8 @@ public class Student {
     private String passwordHash;
 
     @Column(length = 30)
-    private String accountStatus;
+    @Enumerated(EnumType.STRING)
+    private StudentStatus accountStatus;
 
     private LocalDate registrationDate;
 
@@ -35,10 +35,11 @@ public class Student {
     @JoinColumn(name = "role_id", nullable = false)
     private Role role;
 
+    public Student() {
+    }
     // getters & setters
-
-
-    public Student(Integer studentId, String firstName, String lastName, String indexNumber, String email, String passwordHash, String accountStatus, LocalDate registrationDate, Role role) {
+    public Student(Integer studentId, String firstName, String lastName, String indexNumber, String email,
+            String passwordHash, StudentStatus accountStatus, LocalDate registrationDate, Role role) {
         this.studentId = studentId;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -48,6 +49,12 @@ public class Student {
         this.accountStatus = accountStatus;
         this.registrationDate = registrationDate;
         this.role = role;
+    }
+
+    public static enum StudentStatus {
+        ACTIVE,
+        INACTIVE,
+        LOCKED;
     }
 
     public Integer getStudentId() {
@@ -98,11 +105,11 @@ public class Student {
         this.passwordHash = passwordHash;
     }
 
-    public String getAccountStatus() {
+    public StudentStatus getAccountStatus() {
         return accountStatus;
     }
 
-    public void setAccountStatus(String accountStatus) {
+    public void setAccountStatus(StudentStatus accountStatus) {
         this.accountStatus = accountStatus;
     }
 

@@ -1,4 +1,4 @@
-package com.laa66;
+package com.laa66.model;
 
 import javax.persistence.*;
 import java.time.LocalTime;
