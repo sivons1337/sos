@@ -4,7 +4,10 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
+import java.util.List;
 
+import com.laa66.model.Enrollment;
+import com.laa66.model.Grade;
 import com.laa66.dao.StudentDao;
 import com.laa66.model.Student;
 import com.laa66.model.Student.StudentStatus;
@@ -66,5 +69,26 @@ public class StudentDaoImpl implements StudentDao {
 
         entityManager.persist(student);
         return student;
+    }
+
+    @Override
+    public Student getStudent(Integer studentId) {
+        return entityManager.find(Student.class, studentId);
+    }
+
+    @Override
+    public List<Enrollment> getEnrollments(Integer studentId) {
+        TypedQuery<Enrollment> q = entityManager.createQuery(
+                "SELECT e FROM Enrollment e WHERE e.student.studentId = :sid", Enrollment.class);
+        q.setParameter("sid", studentId);
+        return q.getResultList();
+    }
+
+    @Override
+    public List<Grade> getGrades(Integer studentId) {
+        TypedQuery<Grade> q = entityManager.createQuery(
+                "SELECT g FROM Grade g WHERE g.student.studentId = :sid", Grade.class);
+        q.setParameter("sid", studentId);
+        return q.getResultList();
     }
 }

@@ -2,6 +2,7 @@ package com.laa66.dao.impl;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 
 import com.laa66.dao.LoanDao;
@@ -9,6 +10,7 @@ import com.laa66.model.Loan;
 import com.laa66.model.Student;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Transactional
 public class LoanDaoImpl implements LoanDao {
@@ -22,7 +24,7 @@ public class LoanDaoImpl implements LoanDao {
     }
 
     @Override
-    public Loan createLoan(Integer studentId, String bookTitle, Double amount, Integer termMonths) {
+    public Loan createLoan(Integer studentId, String bookTitle, Integer termMonths) {
         Student student = entityManager.find(Student.class, studentId);
         if (student == null) {
             throw new IllegalArgumentException("Student with ID " + studentId + " does not exist");
@@ -39,6 +41,14 @@ public class LoanDaoImpl implements LoanDao {
         entityManager.persist(loan);
 
         return loan;
+    }
+
+    @Override
+    public List<Loan> getLoansByStudent(Integer studentId) {
+        TypedQuery<Loan> q = entityManager.createQuery(
+                "SELECT l FROM Loan l WHERE l.student.studentId = :sid", Loan.class);
+        q.setParameter("sid", studentId);
+        return q.getResultList();
     }
 
     @Override
