@@ -1,5 +1,6 @@
 package com.laa66.dao.impl;
 
+import com.laa66.dao.RoleDao;
 import com.laa66.dao.StudentDao;
 import com.laa66.model.Enrollment;
 import com.laa66.model.Grade;
@@ -7,6 +8,7 @@ import com.laa66.model.Role;
 import com.laa66.model.Student;
 import com.laa66.model.Student.StudentStatus;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,6 +24,9 @@ public class StudentDaoImpl implements StudentDao {
 
     @PersistenceContext
     private EntityManager entityManager;
+    
+    @Autowired
+    private RoleDao roleDao;
 
     @Override
     public void lockAccount(String email) {
@@ -59,26 +64,12 @@ public class StudentDaoImpl implements StudentDao {
     @Override
     public Student createStudent(String name, String email, String firstName, String lastName, String indexNumber,
             String passwordHash, Role role) {
-        // If the role doesn't have an ID, we need to fetch the existing role from the database
-        Role managedRole;
-        if (role.getRoleId() == null) {
-            // Try to find the role by name
-            TypedQuery<Role> roleQuery = entityManager.createQuery(
-                "SELECT r FROM Role r WHERE r.name = :name", Role.class);
-            roleQuery.setParameter("name", role.getName());
-            List<Role> results = roleQuery.getResultList();
-            
-            if (!results.isEmpty()) {
-                managedRole = results.get(0);
-            } else {
-                // If role doesn't exist, create a basic one with a known ID
-                // In a real application, roles should be pre-populated in the database
-                managedRole = new Role();
-                managedRole.setRoleId(1); // Default to first role
-                managedRole.setName("STUDENT");
-            }
-        } else {
-            managedRole = role;
+        // Get the managed role from the database
+        Role managedRole = roleDao.findByName(role.getName());
+        
+        // If role doesn't exist, throw an exception since roles should be pre-populated
+        if (managedRole == null) {
+            throw new RuntimeException("Role '" + role.getName() + "' does not exist in the database. Please ensure roles are pre-populated.");
         }
 
         Student student = new Student();

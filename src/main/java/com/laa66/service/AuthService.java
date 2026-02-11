@@ -53,9 +53,7 @@ public class AuthService {
     }
     
     private Role findOrCreateStudentRole() {
-        // In a real application, you would query the database for the role
-        // For now, we'll create a role with just the name
-        // The StudentDaoImpl will handle finding the proper managed entity
+        // Create a role with just the name - the StudentDaoImpl will look up the managed entity
         Role role = new Role();
         role.setName("STUDENT");
         return role;
