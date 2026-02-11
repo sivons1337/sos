@@ -18,16 +18,14 @@ public class AuthService {
 
     public Optional<Student> authenticate(String email, String password) {
         try {
-            // Find the student by email
             Student student = studentDao.findByEmail(email);
-            
+
             if (student != null) {
-                // Verify the password using BCrypt
                 if (verifyPassword(password, student.getPasswordHash())) {
                     return Optional.of(student);
                 }
             }
-            
+
             return Optional.empty();
         } catch (Exception e) {
             return Optional.empty();
@@ -35,14 +33,12 @@ public class AuthService {
     }
 
     public Student registerStudent(String firstName, String lastName, String email, String indexNumber, String password) {
-        // Find or create the STUDENT role
         Role studentRole = findOrCreateStudentRole();
-        
-        // Hash the password
+
         String hashedPassword = hashPassword(password);
-        
+
         return studentDao.createStudent(
-                firstName + " " + lastName, // Full name
+                firstName + " " + lastName,
                 email,
                 firstName,
                 lastName,
@@ -51,21 +47,18 @@ public class AuthService {
                 studentRole
         );
     }
-    
+
     private Role findOrCreateStudentRole() {
-        // Create a role with just the name - the StudentDaoImpl will look up the managed entity
         Role role = new Role();
         role.setName("STUDENT");
         return role;
     }
 
     private String hashPassword(String password) {
-        // Use BCrypt to hash the password
         return BCrypt.hashpw(password, BCrypt.gensalt());
     }
-    
+
     public boolean verifyPassword(String plainPassword, String hashedPassword) {
-        // Verify the plain password against the hashed password
         return BCrypt.checkpw(plainPassword, hashedPassword);
     }
 }

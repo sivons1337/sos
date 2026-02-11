@@ -42,19 +42,17 @@ public class PaymentController {
         return ResponseEntity.ok(payments);
     }
 
-    // Inner class for request body
     public static class CreatePaymentRequest {
         private Integer studentId;
         private BigDecimal amount;
         private LocalDate dueDate;
 
-        // Getters and setters
         public Integer getStudentId() { return studentId; }
         public void setStudentId(Integer studentId) { this.studentId = studentId; }
-        
+
         public BigDecimal getAmount() { return amount; }
         public void setAmount(BigDecimal amount) { this.amount = amount; }
-        
+
         public LocalDate getDueDate() { return dueDate; }
         public void setDueDate(LocalDate dueDate) { this.dueDate = dueDate; }
     }

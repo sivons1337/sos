@@ -24,10 +24,8 @@ public class AuthController {
         
         if (authResult.isPresent()) {
             Student student = authResult.get();
-            // In a real application, you would generate a JWT token
             response.put("success", true);
             response.put("message", "Login successful");
-            // Add user data to response
             response.put("user", Map.of(
                 "id", student.getStudentId(),
                 "email", student.getEmail(),
@@ -67,7 +65,6 @@ public class AuthController {
         }
     }
 
-    // Inner classes for request bodies
     public static class LoginRequest {
         private String email;
         private String password;
@@ -85,7 +82,6 @@ public class AuthController {
         private String indexNumber;
         private String password;
 
-        // Getters and setters
         public String getFirstName() { return firstName; }
         public void setFirstName(String firstName) { this.firstName = firstName; }
         public String getLastName() { return lastName; }

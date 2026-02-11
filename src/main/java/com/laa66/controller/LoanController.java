@@ -47,19 +47,17 @@ public class LoanController {
         return ResponseEntity.ok().build();
     }
 
-    // Inner class for request body
     public static class CreateLoanRequest {
         private Integer studentId;
         private String bookTitle;
         private Integer termMonths;
 
-        // Getters and setters
         public Integer getStudentId() { return studentId; }
         public void setStudentId(Integer studentId) { this.studentId = studentId; }
-        
+
         public String getBookTitle() { return bookTitle; }
         public void setBookTitle(String bookTitle) { this.bookTitle = bookTitle; }
-        
+
         public Integer getTermMonths() { return termMonths; }
         public void setTermMonths(Integer termMonths) { this.termMonths = termMonths; }
     }

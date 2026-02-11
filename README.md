@@ -1,143 +1,143 @@
-# SOS - Student Information System
+# SOS - System Obsługi Studenta
 
-SOS (Student Information System) is a modern Java web application built with Spring Boot that manages student information, enrollments, grades, loans, and payments.
+SOS (System Obsługi Studenta) to nowoczesna aplikacja webowa napisana w języku Java z wykorzystaniem Spring Boot, która zarządza informacjami o studentach, zapisami na zajęcia, ocenami, pożyczkami książek i płatnościami.
 
-## Technologies Used
+## Technologie użyte
 
-- **Java 17+** - Programming language
-- **Spring Boot 3.2.2** - Application framework
-- **Spring MVC** - Web framework
-- **Spring Data JPA** - Data persistence
-- **Hibernate** - ORM (Object-Relational Mapping)
-- **Jakarta Persistence** - Persistence API (for Spring Boot 3 compatibility)
-- **HSQLDB** - In-memory database for development
-- **Maven** - Dependency management and build tool
-- **Bootstrap 5** - Frontend CSS framework
-- **HTML/CSS/JavaScript** - Frontend technologies
-- **BCrypt** - Password hashing
+- **Java 17+** - Język programowania
+- **Spring Boot 3.2.2** - Framework aplikacji
+- **Spring MVC** - Framework webowy
+- **Spring Data JPA** - Persystencja danych
+- **Hibernate** - ORM (Mapowanie obiektowo-relacyjne)
+- **Jakarta Persistence** - API persystencji (kompatybilność ze Spring Boot 3)
+- **HSQLDB** - Baza danych w pamięci RAM do celów deweloperskich
+- **Maven** - Narzędzie do zarządzania zależnościami i budowania
+- **Bootstrap 5** - Framework CSS dla interfejsu użytkownika
+- **HTML/CSS/JavaScript** - Technologie frontendowe
+- **BCrypt** - Haszowanie haseł
 
-## Features
+## Funkcjonalności
 
-- **User Authentication**: Login and registration system with secure password hashing
-- **Student Dashboard**: View personal information, enrollments, grades, loans, and payments
-- **RESTful API**: Comprehensive API endpoints for all system operations
-- **Responsive UI**: Mobile-friendly interface using Bootstrap
+- **Uwierzytelnianie użytkowników**: System logowania i rejestracji z bezpiecznym haszowaniem haseł
+- **Panel studenta**: Przeglądanie informacji osobistych, zapisów, ocen, pożyczeń i płatności
+- **Interfejs API REST**: Kompleksowe endpointy API dla wszystkich operacji systemowych
+- **Responsywny interfejs**: Interfejs przyjazny urządzeniom mobilnym z wykorzystaniem Bootstrapa
 
-## Project Structure
+## Struktura projektu
 
 ```
 src/
 ├── main/
 │   ├── java/com/laa66/
-│   │   ├── controller/     # REST and web controllers
-│   │   ├── dao/           # Data Access Objects
-│   │   ├── dao/impl/      # DAO implementations
-│   │   ├── model/         # Entity models
-│   │   ├── service/       # Business logic services
-│   │   └── util/          # Utility classes
+│   │   ├── controller/     # Kontrolery REST i webowe
+│   │   ├── dao/           # Obiekty dostępu do danych
+│   │   ├── dao/impl/      # Implementacje DAO
+│   │   ├── model/         # Modele encji
+│   │   ├── service/       # Usługi logiki biznesowej
+│   │   └── util/          # Klasy pomocnicze
 │   ├── resources/
-│   │   ├── static/       # Static assets (HTML, CSS, JS)
-│   │   ├── sql/          # Database initialization scripts
-│   │   └── application.properties  # Configuration
-│   └── webapp/           # Web resources (if any)
+│   │   ├── static/       # Zasoby statyczne (HTML, CSS, JS)
+│   │   ├── sql/          # Skrypty inicjalizacji bazy danych
+│   │   └── application.properties  # Konfiguracja
+│   └── webapp/           # Zasoby webowe (jeśli istnieją)
 ```
 
-## Building the Application
+## Budowanie aplikacji
 
-### Prerequisites
-- Java 17 or higher
-- Maven 3.6.0 or higher
+### Wymagania wstępne
+- Java 17 lub nowsza
+- Maven 3.6.0 lub nowszy
 
-### Steps
-1. Clone the repository:
+### Krok po kroku
+1. Sklonuj repozytorium:
    ```bash
-   git clone <repository-url>
+   git clone <adres-repozytorium>
    cd sos
    ```
 
-2. Build the application:
+2. Zbuduj aplikację:
    ```bash
    mvn clean package
    ```
 
-This will compile the code, run any tests, and create a JAR file in the `target/` directory.
+Spowoduje to skompilowanie kodu, uruchomienie testów i utworzenie pliku JAR w katalogu `target/`.
 
-## Running the Application
+## Uruchamianie aplikacji
 
-### Method 1: Using Maven (Development)
+### Metoda 1: Używając Mavena (dla deweloperów)
 ```bash
 mvn spring-boot:run
 ```
 
-### Method 2: Using Java (Production)
-After building with `mvn package`, run:
+### Metoda 2: Używając Javy (produkcja)
+Po zbudowaniu za pomocą `mvn package`, uruchom:
 ```bash
 java -jar target/sos-1.0-SNAPSHOT.jar
 ```
 
-### Accessing the Application
-Once the application is running, you can access it at:
-- **Web Interface**: http://localhost:8080
-- **API Documentation**: http://localhost:8080/api/info
+### Dostęp do aplikacji
+Po uruchomieniu aplikacji można uzyskać do niej dostęp pod adresem:
+- **Interfejs webowy**: http://localhost:8080
+- **Dokumentacja API**: http://localhost:8080/api/info
 
-## API Endpoints
+## Endpointy API
 
-### Authentication
-- `POST /api/auth/login` - User login
-- `POST /api/auth/register` - User registration
+### Uwierzytelnianie
+- `POST /api/auth/login` - Logowanie użytkownika
+- `POST /api/auth/register` - Rejestracja użytkownika
 
-### Students
-- `GET /api/students/{id}` - Get student by ID
-- `POST /api/students` - Create new student
-- `PUT /api/students/{id}/lock` - Lock student account
-- `PUT /api/students/{id}/activate` - Activate student account
-- `GET /api/students/{id}/enrollments` - Get student enrollments
-- `GET /api/students/{id}/grades` - Get student grades
+### Studenci
+- `GET /api/students/{id}` - Pobierz studenta po ID
+- `POST /api/students` - Utwórz nowego studenta
+- `PUT /api/students/{id}/lock` - Zablokuj konto studenta
+- `PUT /api/students/{id}/activate` - Aktywuj konto studenta
+- `GET /api/students/{id}/enrollments` - Pobierz zapisy studenta
+- `GET /api/students/{id}/grades` - Pobierz oceny studenta
 
-### Loans
-- `GET /api/loans/{id}` - Get loan by ID
-- `POST /api/loans` - Create new loan
-- `GET /api/loans/student/{studentId}` - Get loans for a student
+### Pożyczenia
+- `GET /api/loans/{id}` - Pobierz pożyczkę po ID
+- `POST /api/loans` - Utwórz nową pożyczkę
+- `GET /api/loans/student/{studentId}` - Pobierz pożyczki dla studenta
 
-### Payments
-- `GET /api/payments/{id}` - Get payment by ID
-- `POST /api/payments` - Create new payment
-- `GET /api/payments/student/{studentId}/unpaid` - Get unpaid payments for a student
+### Płatności
+- `GET /api/payments/{id}` - Pobierz płatność po ID
+- `POST /api/payments` - Utwórz nową płatność
+- `GET /api/payments/student/{studentId}/unpaid` - Pobierz niezapłacone płatności dla studenta
 
-## Database Schema
+## Schemat bazy danych
 
-The application uses an HSQLDB in-memory database with the following main entities:
-- **Role**: User roles (STUDENT, ADMIN, LECTURER)
-- **Student**: Student information and accounts
-- **Course**: Academic courses
-- **Enrollment**: Student enrollments in courses
-- **Grade**: Academic grades
-- **Loan**: Book loans
-- **Payment**: Financial payments
-- **Schedule**: Student schedules
-- **ClassSession**: Individual class sessions
-- **Notification**: System notifications
+Aplikacja wykorzystuje bazę danych HSQLDB w pamięci RAM z następującymi głównymi encjami:
+- **Role**: Role użytkowników (STUDENT, ADMIN, LECTURER)
+- **Student**: Informacje o studentach i kontach
+- **Course**: Kursy akademickie
+- **Enrollment**: Zapisy studentów na kursy
+- **Grade**: Oceny akademickie
+- **Loan**: Pożyczenia książek
+- **Payment**: Płatności finansowe
+- **Schedule**: Harmonogramy studentów
+- **ClassSession**: Indywidualne sesje zajęciowe
+- **Notification**: Powiadomienia systemowe
 
-## Configuration
+## Konfiguracja
 
-The application is configured through `src/main/resources/application.properties`:
-- Database connection settings
-- Server port (default: 8080)
-- JPA/Hibernate settings
-- Logging levels
+Aplikacja jest konfigurowana przez plik `src/main/resources/application.properties`:
+- Ustawienia połączenia z bazą danych
+- Port serwera (domyślnie: 8080)
+- Ustawienia JPA/Hibernate
+- Poziomy logowania
 
-## Design Patterns Used
+## Wykorzystane wzorce projektowe
 
-- **DAO (Data Access Object)**: Separates business logic from data persistence
-- **MVC (Model-View-Controller)**: Separates concerns in the web layer
-- **Dependency Injection**: Managed by Spring framework
-- **Repository Pattern**: Through Spring Data JPA
-- **Service Layer**: Business logic encapsulation
+- **DAO (Obiekt Dostępu do Danych)**: Oddzielenie logiki biznesowej od persystencji danych
+- **MVC (Model-Widok-Kontroler)**: Oddzielenie problemów w warstwie webowej
+- **Wstrzykiwanie zależności**: Zarządzane przez framework Spring
+- **Wzorzec Repozytorium**: Poprzez Spring Data JPA
+- **Warstwa usług**: Hermetyzacja logiki biznesowej
 
-## Development Notes
+## Uwagi deweloperskie
 
-- The application uses in-memory HSQLDB for development and testing
-- Passwords are securely hashed using BCrypt
-- The frontend is built with Bootstrap for responsive design
-- RESTful API design principles are followed
-- Proper error handling and validation are implemented
+- Aplikacja wykorzystuje bazę danych HSQLDB w pamięci RAM do celów rozwoju i testowania
+- Hasła są bezpiecznie haszowane przy użyciu BCrypt
+- Frontend jest zbudowany z wykorzystaniem Bootstrapa dla responsywnego projektu
+- Zastosowano zasady projektowania RESTful API
+- Zaimplementowano odpowiednie obsługę błędów i walidację

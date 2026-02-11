@@ -24,9 +24,6 @@ public class StudentDaoImpl implements StudentDao {
 
     @PersistenceContext
     private EntityManager entityManager;
-    
-    @Autowired
-    private RoleDao roleDao;
 
     @Override
     public void lockAccount(String email) {
@@ -64,12 +61,19 @@ public class StudentDaoImpl implements StudentDao {
     @Override
     public Student createStudent(String name, String email, String firstName, String lastName, String indexNumber,
             String passwordHash, Role role) {
-        // Get the managed role from the database
-        Role managedRole = roleDao.findByName(role.getName());
-        
-        // If role doesn't exist, throw an exception since roles should be pre-populated
-        if (managedRole == null) {
-            throw new RuntimeException("Role '" + role.getName() + "' does not exist in the database. Please ensure roles are pre-populated.");
+        TypedQuery<Role> roleQuery = entityManager.createQuery(
+                "SELECT r FROM Role r WHERE r.name = :name", Role.class);
+        roleQuery.setParameter("name", role.getName());
+        List<Role> roleResults = roleQuery.getResultList();
+
+        Role managedRole;
+        if (!roleResults.isEmpty()) {
+            managedRole = roleResults.get(0);
+        } else {
+            managedRole = new Role();
+            managedRole.setName(role.getName());
+            entityManager.persist(managedRole);
+            entityManager.flush();
         }
 
         Student student = new Student();
