@@ -1,11 +1,12 @@
 package com.laa66;
 
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+@SpringBootApplication(scanBasePackages = "com.laa66")
 public class Main {
     public static void main(String[] args) {
-        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("applicationContext.xml");
-        System.out.println("Application context initialized: " + applicationContext);
+        SpringApplication.run(Main.class, args);
+        System.out.println("SOS Application started successfully!");
     }
 }

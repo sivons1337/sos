@@ -1,17 +1,19 @@
 package com.laa66.dao.impl;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
-import javax.transaction.Transactional;
-
 import com.laa66.dao.LoanDao;
 import com.laa66.model.Loan;
 import com.laa66.model.Student;
 
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.TypedQuery;
 import java.time.LocalDate;
 import java.util.List;
 
+@Repository
 @Transactional
 public class LoanDaoImpl implements LoanDao {
 
