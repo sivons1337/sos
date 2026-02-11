@@ -59,6 +59,28 @@ public class StudentDaoImpl implements StudentDao {
     @Override
     public Student createStudent(String name, String email, String firstName, String lastName, String indexNumber,
             String passwordHash, Role role) {
+        // If the role doesn't have an ID, we need to fetch the existing role from the database
+        Role managedRole;
+        if (role.getRoleId() == null) {
+            // Try to find the role by name
+            TypedQuery<Role> roleQuery = entityManager.createQuery(
+                "SELECT r FROM Role r WHERE r.name = :name", Role.class);
+            roleQuery.setParameter("name", role.getName());
+            List<Role> results = roleQuery.getResultList();
+            
+            if (!results.isEmpty()) {
+                managedRole = results.get(0);
+            } else {
+                // If role doesn't exist, create a basic one with a known ID
+                // In a real application, roles should be pre-populated in the database
+                managedRole = new Role();
+                managedRole.setRoleId(1); // Default to first role
+                managedRole.setName("STUDENT");
+            }
+        } else {
+            managedRole = role;
+        }
+
         Student student = new Student();
         student.setFirstName(firstName);
         student.setLastName(lastName);
@@ -67,7 +89,7 @@ public class StudentDaoImpl implements StudentDao {
         student.setPasswordHash(passwordHash);
         student.setAccountStatus(StudentStatus.INACTIVE);
         student.setRegistrationDate(LocalDate.now());
-        student.setRole(role);
+        student.setRole(managedRole);
 
         entityManager.persist(student);
         return student;

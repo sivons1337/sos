@@ -35,9 +35,8 @@ public class AuthService {
     }
 
     public Student registerStudent(String firstName, String lastName, String email, String indexNumber, String password) {
-        // Create a new student with the STUDENT role
-        Role studentRole = new Role();
-        studentRole.setName("STUDENT"); // Assuming STUDENT role exists
+        // Find or create the STUDENT role
+        Role studentRole = findOrCreateStudentRole();
         
         // Hash the password
         String hashedPassword = hashPassword(password);
@@ -51,6 +50,15 @@ public class AuthService {
                 hashedPassword,
                 studentRole
         );
+    }
+    
+    private Role findOrCreateStudentRole() {
+        // In a real application, you would query the database for the role
+        // For now, we'll create a role with just the name
+        // The StudentDaoImpl will handle finding the proper managed entity
+        Role role = new Role();
+        role.setName("STUDENT");
+        return role;
     }
 
     private String hashPassword(String password) {
