@@ -18,6 +18,8 @@ public interface StudentDao {
             String passwordHash, Role role);
 
     Student getStudent(Integer studentId);
+    
+    Student findByEmail(String email);
 
     List<Enrollment> getEnrollments(Integer studentId);
 

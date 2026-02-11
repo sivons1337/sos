@@ -77,6 +77,19 @@ public class StudentDaoImpl implements StudentDao {
     public Student getStudent(Integer studentId) {
         return entityManager.find(Student.class, studentId);
     }
+    
+    @Override
+    public Student findByEmail(String email) {
+        TypedQuery<Student> query = entityManager.createQuery(
+                "SELECT s FROM Student s WHERE s.email = :email", Student.class);
+        query.setParameter("email", email);
+        
+        List<Student> results = query.getResultList();
+        if (!results.isEmpty()) {
+            return results.get(0);
+        }
+        return null;
+    }
 
     @Override
     public List<Enrollment> getEnrollments(Integer studentId) {
