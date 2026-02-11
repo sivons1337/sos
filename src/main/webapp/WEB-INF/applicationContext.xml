@@ -45,4 +45,11 @@ class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
 	<bean id="StudentDao" class="com.laa66.dao.impl.StudentDaoImpl" />
 	<bean id="LoanDao" class="com.laa66.dao.impl.LoanDaoImpl" />
 	<bean id="PaymentDao" class="com.laa66.dao.impl.PaymentDaoImpl" />
+	<bean id="CourseDao" class="com.laa66.dao.impl.CourseDaoImpl" />
+	<bean id="EnrollmentDao" class="com.laa66.dao.impl.EnrollmentDaoImpl" />
+	<bean id="GradeDao" class="com.laa66.dao.impl.GradeDaoImpl" />
+	<bean id="ClassSessionDao" class="com.laa66.dao.impl.ClassSessionDaoImpl" />
+	<bean id="NotificationDao" class="com.laa66.dao.impl.NotificationDaoImpl" />
+	<bean id="RoleDao" class="com.laa66.dao.impl.RoleDaoImpl" />
+	<bean id="ScheduleDao" class="com.laa66.dao.impl.ScheduleDaoImpl" />
 </beans>
