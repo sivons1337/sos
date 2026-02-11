@@ -1,8 +1,8 @@
-# Aplikacja SOS - System Obsługi Studiów
+# Aplikacja SOS - System Obsługi Studenta
 
 ## Opis projektu
 
-Aplikacja SOS to system wspomagający zarządzanie procesem dydaktycznym na uczelni. Projekt wykorzystuje tradycyjny framework Spring (nie Spring Boot) oraz technologie Java 8.
+Aplikacja SOS to system wspomagający zarządzanie studentami i ich danymi na uczelni. Projekt wykorzystuje framework Spring oraz technologie Java 8.
 
 ## Struktura projektu
 
